@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/x-icon" href="" />
+		<title>BMI kalkulátor</title>
+		<style>
+			body {
+				background-repeat: no-repeat;
+				height: 100vh;
+				background-image: linear-gradient(to bottom, rgb(0, 0, 0), rgb(119, 114, 114));
+			}
+			.container {
+				margin: 0 auto;
+				border: 2px solid black;
+				text-align: center;
+				max-width: 500px;
+				display: flex;
+				flex-direction: column;
+				padding: 40px;
+				gap: 10px;
+				border-radius: 10px;
+				background-color: rgb(119, 114, 114);
+				box-shadow: 5px 5px 15px black;
+			}
+			input {
+				text-align: center;
+				border-radius: 5px;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				border: 1px solid black;
+				box-shadow: 2px 2px 2px black;
+				height: 40px;
+			}
+			button {
+				width: 100px;
+				height: 50px;
+				margin: 0 auto;
+				border-radius: 5px;
+				border: 1px solid black;
+				background-color: white;
+				font-size: 17px;
+				font-weight: bold;
+				color: black;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				box-shadow: 2px 2px 2px black;
+				cursor: pointer;
+			}
+			p {
+				border: 1px solid black;
+				background-color: white;
+				font-style: italic;
+				color: black;
+				height: 25px;
+				width: 300px;
+				margin: 0 auto;
+				border-radius: 5px;
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				box-shadow: 2px 2px 2px black;
+			}
+			h1 {
+				font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+				font-style: italic;
+				margin-top: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>BMI calculator</h1>
+			<input type="number" id="weight" placeholder="Body Weight...(kg)" />
+			<input type="number" id="height" placeholder="Body Height...(cm)" />
+			<div>
+				<button onclick="calc()" style="margin-right: 10px">Your BMI</button>
+				<button onclick="reset()" style="margin-left: 10px">Reset</button>
+			</div>
+			<p id="result">BMI index</p>
+		</div>
+
+		<script>
+			const intervals = [
+				{ min: 0, max: 18.5, categ: 'underweight', emoji: '🤨' },
+				{ min: 18.5, max: 24.9, categ: 'normal', emoji: '😎' },
+				{ min: 24.9, max: 100, categ: 'overweight', emoji: '🤔' },
+			];
+			let weight = document.getElementById('weight');
+			let height = document.getElementById('height');
+			let result = document.getElementById('result');
+
+			function calc() {
+				let bmi = weight.value / Math.pow(height.value / 100, 2);
+				let interval = intervals.find((obj) => bmi >= obj.min && bmi < obj.max);
+				result.innerHTML = bmi.toFixed(2) + ' ' + interval.categ + ' ' + interval.emoji;
+			}
+
+			function reset() {
+				weight.value = '';
+				height.value = '';
+				result.innerHTML = 'BMI index';
+			}
+		</script>
+	</body>
+</html>
